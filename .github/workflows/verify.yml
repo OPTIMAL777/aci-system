@@ -18,10 +18,7 @@ jobs:
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
           
       - name: Verify Lean Proof
-        run: |
-          cd lean_workspace
-          lake env lean MyProject.lean
+        run: lake env lean MyProject.lean
           
       - name: Update certification status
-        run: |
-          echo "Verification complete"
+        run: echo "Verification complete"
