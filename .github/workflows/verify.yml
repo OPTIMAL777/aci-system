@@ -16,9 +16,12 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
-          
+
+      - name: Build Mathlib
+        run: lake build Mathlib
+
       - name: Verify Lean Proof
         run: lake env lean MyProject.lean
-          
+
       - name: Update certification status
         run: echo "Verification complete"
