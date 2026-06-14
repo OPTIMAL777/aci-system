@@ -1,0 +1,22 @@
+me: Lean 4 Mathematical Verification
+
+on:
+    push:
+          branches: [ main, master ]
+
+          jobs:
+              build:
+                    runs-on: ubuntu-latest
+                        steps:
+                              - name: Checkout Code
+                                    uses: actions/checkout@v4
+
+                                        - name: Install Elan & Lean 4
+                                              run: |
+                                                        curl https://githubusercontent.com -sSf | sh -s -- -y
+                                                                echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+                                                                    - name: Verify Math Logic and Build Project
+                                                                          run: |
+                                                                                    lake build
+
