@@ -1,21 +1,30 @@
-name: Lean 4 Mathematical Verification
+name: Continuous Mathematical Verification Pipeline
 
 on:
   push:
     branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   build:
+    name: Run Lean 4 Theorem Verification
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Code
+    - name: Checkout Local Repository Source
       uses: actions/checkout@v4
 
-    - name: Install Elan & Lean 4
-      run: |
-        curl https://githubusercontent.com -sSf | sh -s -- -y
-        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+    - name: Initialize Lean 4 Environment Toolchain
+      uses: leanprover/lean-action@v1
+      with:
+        lean-version: 'leanprover/lean4:v4.31.0-rc2'
 
-    - name: Verify Math Logic and Build Project
+    - name: Hydrate Precompiled Mathematical Cache
       run: |
+        lake exe cache get
+
+    - name: Execute Lean Project Audit
+      run: |
+        lake clean
         lake build

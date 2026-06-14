@@ -1,6 +1,5 @@
-# Ignore temporary build logs and build data
-*.log
 .lake/
 build/
 *.olean
-.DS_Store
+*.ilean
+.lake/build/
